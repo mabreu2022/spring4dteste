@@ -1,0 +1,49 @@
+program spring4dteste;
+
+{$APPTYPE CONSOLE}
+{$R *.res}
+
+uses
+  System.SysUtils,
+  System.JSON,
+  System.Generics.Collections,
+
+  Horse,
+  Horse.Jhonson, // Middleware para JSON
+
+  Spring.Collections,
+  Spring.Persistence.Core.Session,
+  Spring.Persistence.Core.Interfaces,
+
+  Model.Clientes in 'Model\Model.Clientes.pas',
+  Model.Conexao in 'Model\Model.Conexao.pas';
+
+begin
+  // Middleware para JSON (necessário para serialização automática)
+  THorse.Use(Jhonson());
+
+  // Endpoint GET /cliente
+  THorse.Get('/cliente',
+    procedure(Req: THorseRequest; Res: THorseResponse)
+    var
+      Session: TSession;
+      ClientesEnumerable: IEnumerable<TCliente>;
+      ClientesList: TObjectList<TCliente>;
+    begin
+      Session := TConnection.NewSession;
+
+      // Busca todos os clientes como IEnumerable<T>
+      ClientesEnumerable := Session.FindAll<TCliente>;
+
+      // Converte IEnumerable para TObjectList
+      ClientesList := TObjectList<TCliente>.Create(True);
+      ClientesList.AddRange(ClientesEnumerable.ToArray);
+
+      // Retorna como JSON automaticamente
+      Res.Send<TObjectList<TCliente>>(ClientesList);
+    end);
+
+  // Inicializa o servidor na porta 9000
+  THorse.Listen(9000);
+end.
+

@@ -1,0 +1,42 @@
+program spring4dteste;
+
+{$APPTYPE CONSOLE}
+{$R *.res}
+
+uses
+  System.SysUtils,
+  System.JSON,
+  System.Generics.Collections,
+
+  Horse,
+  Horse.Jhonson,
+
+  Spring.Collections,
+  Spring.Persistence.Core.Session,
+  Spring.Persistence.Core.Interfaces,
+
+  Model.Clientes in 'Model\Model.Clientes.pas',
+  Model.Conexao in 'Model\Model.Conexao.pas';
+
+begin
+ // THorse.Use(Jhonson());
+
+  THorse.Get('/cliente',
+    procedure(Req: THorseRequest; Res: THorseResponse; next: TProc)
+    var
+     LClienteLista : IList<Tcliente>;
+     LClientes     : TObjectList<TCliente>;
+     LCliente      : TCliente;
+    begin
+      LClienteLista := TConnection.NewSession.FindAll<Tcliente>;
+      LClientes     := TObjectList<TCliente>.Create;
+
+      for LCliente in  LClienteLista.ExtractRange(0,LClienteLista.Count) do
+        LClientes.Add(LCliente);
+
+      Res.Send(TJSON.ObjecttoJSONString(ClientesList);
+    end);
+
+  THorse.Listen(9000);
+end.
+

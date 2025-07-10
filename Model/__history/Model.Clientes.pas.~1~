@@ -1,0 +1,19 @@
+unit Model.Clientes;
+
+interface
+
+uses
+  Spring,
+  Spring.Persistence.Mapping.Attributes;
+
+type
+  TCliente = class
+    private
+
+    public
+
+  end;
+
+implementation
+
+end.

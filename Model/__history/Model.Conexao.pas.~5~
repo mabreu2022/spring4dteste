@@ -1,0 +1,62 @@
+unit Model.Conexao;
+
+interface
+
+uses
+  Firedac.Comp.Client,
+
+  Spring.Persistence.Core.Interfaces,
+  Spring.Persistence.Core.Session,
+  Spring.Persistence.Core.ConnectionFactory,
+  Spring.Persistence.Adapters.Firedac,
+
+  FireDac.Stan.Intf,
+  FireDac.Stan.Option,
+  FireDac.Stan.Error,
+  FireDac.UI.Intf,
+  FireDac.Phys.Intf,
+  FireDac.Stan.Def,
+  FireDac.Stan.Pool,
+  FireDac.Stan.Async,
+  FireDac.Phys,
+  FireDac.Phys.FB,
+  FireDac.Phys.FBDef,
+  FireDac.Stan.ExprFuncs,
+  FireDac.VCLUI.Wait,
+  Data.DB;
+
+type
+  TConnection = class
+    private
+       class var FFDConnection : TFDCOnnection;
+       class var FConnection : IDBCOnnection;
+       class var FSession: TSession;
+
+    public
+       class function Session : TSession;
+  end;
+
+
+implementation
+
+{ TConnection }
+
+class function TConnection.Session: TSession;
+begin
+  if not Assigned(FSession) then
+  begin
+    FFDConnection := TFDConnection.Create(nil);
+    FFDConnection.Params.DriverID := 'FB';
+    FFDConnection.Params.Database := 'C:\FONTES\Colaborar\DataBase\BANCOCOLABORAR.FDB';
+    FFDConnection.Params.UserName:= 'SYSDBA';
+    FFDConnection.Params.Password:= 'masterkey';
+
+    FConnection := TConnectionFactory.GetInstance(dtFireDaC, FFDConnection);
+    FConnection.AutoFreeConnection := True;
+    FSession :=   TSession.Create(FConnection);
+
+  end;
+  Result := FSession;
+end;
+
+end.

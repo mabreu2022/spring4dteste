@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>2025/07/10 11:50:16.000.876,C:\Users\Mauricio Abreu\Documents\Embarcadero\Studio\Projects\Project1.dproj=C:\FONTES\sprin4dteste\spring4dteste.dproj</Transaction>
+    <Transaction>2025/07/10 12:16:13.000.705,=C:\FONTES\sprin4dteste\Unit1.pas</Transaction>
+    <Transaction>2025/07/10 12:30:36.000.955,=C:\FONTES\sprin4dteste\Model\Model.Clientes.pas</Transaction>
+    <Transaction>2025/07/10 13:03:11.410,=C:\FONTES\sprin4dteste\Unit1.pas</Transaction>
+    <Transaction>2025/07/10 13:16:29.536,C:\FONTES\sprin4dteste\Model\Model.Conexao.pas=C:\FONTES\sprin4dteste\Unit1.pas</Transaction>
+  </Transactions>
+</BorlandProject>

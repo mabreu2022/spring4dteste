@@ -1,0 +1,76 @@
+unit Model.Conexao;
+
+interface
+
+uses
+  Firedac.Comp.Client,
+
+  Spring.Persistence.Core.Interfaces,
+  Spring.Persistence.Core.Session,
+  Spring.Persistence.Core.ConnectionFactory,
+  Spring.Persistence.Adapters.Firedac,
+
+  Firedac.Stan.Intf,
+  Firedac.Stan.Option,
+  Firedac.Stan.Error,
+  Firedac.UI.Intf,
+  Firedac.Phys.Intf,
+  Firedac.Stan.Def,
+  Firedac.Stan.Pool,
+  Firedac.Stan.Async,
+  Firedac.Phys,
+  Firedac.Phys.FB,
+  Firedac.Phys.FBDef,
+  Firedac.Stan.ExprFuncs,
+  Firedac.Phys.IBWrapper,
+  Firedac.VCLUI.Wait,
+  Data.DB;
+
+type
+  TConnection = class
+  private
+    class var FFDConnection: TFDCOnnection;
+    class var FConnection: IDBCOnnection;
+    class var FSession: TSession;
+
+  public
+    class function Session: TSession;
+  end;
+
+implementation
+
+{ TConnection }
+
+class function TConnection.Session: TSession;
+begin
+  if not Assigned(FSession) then
+  begin
+    FFDConnection := TFDCOnnection.Create(nil);
+    with FFDConnection.Params do
+    begin
+      Clear;
+      Add('DriverID=FB');
+      Add('Server=localhost');
+      Add('Database=C:\FONTES\Colaborar\DataBase\BANCOCOLABORAR.FDB');
+      Add('Protocol=TCPIP');
+      Add('User_Name=SYSDBA');
+      Add('Password=masterkey');
+      Add('Port=3050');
+    end;
+
+//    FFDConnection.Params.DriverID := 'FB';
+//    FFDConnection.Params.Database :=
+//      'C:\FONTES\Colaborar\DataBase\BANCOCOLABORAR.FDB';
+//    FFDConnection.Params.UserName := 'SYSDBA';
+//    FFDConnection.Params.Password := 'masterkey';
+//    FFDConnection.Params.Add('Protocol=TCPIP');
+
+    FConnection := TConnectionFactory.GetInstance(dtFireDaC, FFDConnection);
+    FConnection.AutoFreeConnection := True;
+    FSession := TSession.Create(FConnection);
+
+  end;
+  Result := FSession;
+end;
+
+end.

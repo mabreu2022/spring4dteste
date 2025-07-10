@@ -1,0 +1,92 @@
+{
+  "info": {
+    "name": "Clientes API (Delphi + Horse)",
+    "description": "Coleção para testar endpoints REST da API de clientes",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Listar todos os clientes",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Accept",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "http://localhost:9000/cliente",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "9000",
+          "path": ["cliente"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Adicionar cliente",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"Nome_Razao\": \"Cliente Teste\",\n  \"Tipo_Pessoa\": \"F\",\n  \"CPF_CNPJ\": \"12345678900\",\n  \"Email\": \"teste@cliente.com\"\n}"
+        },
+        "url": {
+          "raw": "http://localhost:9000/cliente",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "9000",
+          "path": ["cliente"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Atualizar cliente (ID = 1)",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"ID_Cliente\": 1,\n  \"Nome_Razao\": \"Cliente Atualizado\",\n  \"Tipo_Pessoa\": \"J\",\n  \"CPF_CNPJ\": \"00000000000001\"\n}"
+        },
+        "url": {
+          "raw": "http://localhost:9000/cliente/1",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "9000",
+          "path": ["cliente", "1"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Excluir cliente (ID = 1)",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:9000/cliente/1",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "9000",
+          "path": ["cliente", "1"]
+        }
+      },
+      "response": []
+    }
+  ]
+}
