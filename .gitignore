@@ -1,0 +1,21 @@
+# Pastas de build e histórico
+Win32/
+x64/
+__history/
+__recovery/
+
+# Arquivos temporários
+*.dcu
+*.~*
+*.log
+
+# Arquivos locais e de cache
+*.local
+*.identcache
+*.tvsconfig
+
+# IDE e configurações temporárias
+*.stat
+*.dsk
+*.bak
+*.cfg
